@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "username": "Jane Doe",
+      "topic": "Technology",
+      "heading": "The Future of AI: What to Expect",
+      "likes": 123
+    },
+    {
+      "id": 2,
+      "username": "John Smith",
+      "topic": "Health",
+      "heading": "10 Tips for a Healthier Lifestyle",
+      "likes": 98
+    },
+    {
+      "id": 3,
+      "username": "Alice Johnson",
+      "topic": "Travel",
+      "heading": "Top 5 Destinations for 2024",
+      "likes": 76
+    },
+    {
+      "id": 4,
+      "username": "Bob Brown",
+      "topic": "Finance",
+      "heading": "How to Manage Your Finances Wisely",
+      "likes": 112
+    },
+    {
+      "id": 5,
+      "username": "Emily Davis",
+      "topic": "Lifestyle",
+      "heading": "The Art of Mindfulness",
+      "likes": 87
+    }
+  ]
+  

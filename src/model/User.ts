@@ -1,0 +1,125 @@
+import mongoose from "mongoose";
+import { Schema ,Document} from "mongoose";
+import { myBlogs } from "@/types/myBlog";
+import BlogModel from "./Blog";
+export interface Badge{
+    name:string,
+    imageUrl:string,
+    category:string,
+    assignedDate:Date
+}
+export interface User extends Document{
+    username:string,
+    password:string,
+    email:string,
+    name:string,
+    profileImg:string,
+    verifyCode:string,
+    verifyCodeExpiry:Date,
+    isVerified:boolean,
+    blogs:myBlogs[],
+    bio:string,
+    likes:number,
+    comments:number,
+    wordCount:number,
+    recentBadgeInWordsCategory:string,
+    recentBadgeInLikesCategory:string,
+    recentBadgeInCommentsCategory:string,
+    badges:Badge[]
+}
+const userSchema=new Schema<User>({
+    username:{
+        type:String,
+        required:true,
+        trim:true,
+        lowercase:true,
+    },
+    email:{
+        type:String,
+        required:true,
+        trim:true,
+        lowercase:true,
+        unique:true
+    },
+    name:{
+        type:String,
+        required:true,
+    },
+    password:{
+        type:String,
+        trim:true,
+    },
+    profileImg:{
+        type:String,
+        required:true
+    },
+    verifyCode:{
+        type:String,
+    },
+    verifyCodeExpiry:{
+        type:Date,
+    },
+    isVerified:{
+        type:Boolean,
+        default:false
+    },
+    blogs:[
+        {
+            blogId:{
+                type:mongoose.Types.ObjectId,
+                required:true,
+                ref:'Blog'
+            },
+        }
+    ],
+    bio:{
+        type:String,
+        default:''
+    },
+    likes:{
+        type:Number,
+        default:0
+    },
+    wordCount:{
+        type:Number,
+        default:0
+    },
+    comments:{
+        type:Number,
+        default:0
+    },
+    recentBadgeInWordsCategory:{
+        type:String,
+        default:''
+    },
+    recentBadgeInCommentsCategory:{
+        type:String,
+        default:''
+    },
+    recentBadgeInLikesCategory:{
+        type:String,
+        default:''
+    },
+    badges:[
+        {
+            name:{
+                type:String,
+                required:true,
+            },
+            imageUrl:{
+                type:String,
+                required:true
+            },
+            category:{
+                type:String,
+                required:true
+            },
+            assignedDate:{
+                type:Date,
+                default:Date.now
+            }
+        }
+    ]
+})
+const UserModel=(mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>('User',userSchema));
+export default UserModel;
