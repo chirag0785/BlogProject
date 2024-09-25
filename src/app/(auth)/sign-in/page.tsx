@@ -10,11 +10,13 @@ import { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 const Page = () => {
     const { toast } = useToast();
+    const router=useRouter();
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -40,6 +42,8 @@ const Page = () => {
                 title: "Success",
                 description: "Sign in success",
             });
+
+            router.replace('/dashboard');
         } catch (err) {
             const axiosError = err as AxiosError<ApiResponse>;
             toast({
@@ -63,6 +67,7 @@ const Page = () => {
                 });
                 return;
             }
+            router.replace('/dashboard');
         }catch(err:any){
             toast({
                 title: "Error",
