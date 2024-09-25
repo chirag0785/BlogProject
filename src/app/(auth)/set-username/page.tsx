@@ -22,7 +22,7 @@ import { ApiResponse } from "@/types/ApiResponse"
 import { Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
-const page = () => {
+const Page = () => {
     const { data: session, update } = useSession();
     const [username,setUsername]=useState("");
     const [usernameMsg,setUsernameMsg]=useState("");
@@ -153,4 +153,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
