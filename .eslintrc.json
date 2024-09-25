@@ -1,8 +1,14 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-      "react/jsx-key": "off",
-      "react-hooks/exhaustive-deps": "off",
-      "react/no-unescaped-entities": "off"
+    "react/jsx-key": "warn", // Warn about missing keys in lists to help with rendering
+    "react-hooks/exhaustive-deps": "warn", // Warn about missing dependencies in effect hooks
+    "react/no-unescaped-entities": "warn", // Warn about unescaped entities for better HTML compliance
+    "react/react-in-jsx-scope": "off", // Next.js does not require React in scope for JSX
+    "react/jsx-filename-extension": [
+      "warn",
+      { "extensions": [".tsx", ".jsx"] } // Allow JSX in .tsx files
+    ],
+    "no-console": "warn" // Warn when console statements are used
   }
 }
