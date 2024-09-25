@@ -1,8 +1,8 @@
 "use client"
-const page = () => {
+const Page = () => {
   return (
     <div>page</div>
   )
 }
 
-export default page
+export default Page

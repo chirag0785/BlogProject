@@ -1,7 +1,7 @@
 
 "use client"
 import parse from "html-react-parser";
-const page = () => {
+const Page = () => {
     const content=`<p>In our fast-paced world, finding moments of peace and calm can be challenging. Daily meditation offers a simple yet profound way to achieve mental clarity and emotional balance. By dedicating just a few minutes each day to meditation, individuals can experience numerous benefits that positively impact their overall well-being.</p>
 <p>Meditation helps reduce stress by calming the mind and promoting relaxation. This practice allows individuals to step away from their daily worries and focus on the present moment. Scientific studies have shown that regular meditation can lower cortisol levels, the hormone associated with stress, leading to improved mood and reduced anxiety.</p>
 <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://imgs.search.brave.com/ZgdUPRT1jJczwZHgZ3T4di564S9U0nRmLPUhYXDGUmg/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMz/NjE4NjE1My9waG90/by9vdXRkb29yLW1l/ZGl0YXRpb24uanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPUxH/T3ZQV2xTRXFNUEtt/a21hOVNpbER5TXlH/OXZ0MXNwaXRzS1JX/ZmFyNUU9" alt="outdoor meditation - meditating stock pictures, royalty-free photos &amp; images"></p>
@@ -16,4 +16,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

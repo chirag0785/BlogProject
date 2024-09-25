@@ -10,15 +10,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { FaComment, FaHeart } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 const Page = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const { toast } = useToast();
   const router = useRouter();
   const [isFetched, setIsFetched] = useState(false);
-
+  const {data:session}=useSession();
   const fetchBlogsByTopic = async (topic: string) => {
     setIsFetched(false);
+    
     try {
       const response = await axios.get<ApiResponse>(`/api/get-blogs-by-topic/${topic}`);
       setBlogs(response.data.blogs || []);
@@ -36,7 +39,7 @@ const Page = () => {
   useEffect(()=>{
     const topic="Self Improvement";
     fetchBlogsByTopic(topic);
-  },[])
+  },[session])
 
   return (
     <div className="container mx-auto p-6">
@@ -88,7 +91,7 @@ const Page = () => {
                           {blog.heading}
                         </CardTitle>
                         <CardDescription className="text-gray-600 flex items-center space-x-3">
-                          <img src={blog.profileImg} alt={`${blog.name}'s profile`} className="w-12 h-12 rounded-full object-cover" />
+                          <Image src={blog.profileImg as string} alt={`${blog.name}'s profile`} className="w-12 h-12 rounded-full object-cover" />
                           <span className="text-sm">{blog.name} in {blog.topic}</span>
                         </CardDescription>
                       </CardHeader>

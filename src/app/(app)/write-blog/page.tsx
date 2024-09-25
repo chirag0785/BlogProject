@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 
-const page = () => {
+const Page = () => {
     const [wordCount, setWordCount] = useState(4);
     const { toast } = useToast();
     const router = useRouter();
@@ -214,4 +214,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

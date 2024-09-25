@@ -20,7 +20,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod";
 
-const page = ({ params }: { params: { username: string } }) => {
+const Page = ({ params }: { params: { username: string } }) => {
     const { username } = params;
     const { toast } = useToast();
     const [isVerifying, setIsVerifying] = useState(false);
@@ -99,4 +99,4 @@ const page = ({ params }: { params: { username: string } }) => {
     );
 }
 
-export default page;
+export default Page;

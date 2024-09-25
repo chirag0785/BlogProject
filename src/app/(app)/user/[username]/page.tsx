@@ -53,6 +53,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import Image from "next/image";
 const Page = ({ params }: { params: { username: string } }) => {
   const { data: session } = useSession();
   const { username } = params;
@@ -202,7 +203,7 @@ const Page = ({ params }: { params: { username: string } }) => {
           <div className="flex flex-col items-center space-y-6 w-full max-w-md">
 
             
-            <img src={user.profileImg} alt="Profile" className="h-40 w-40 rounded-full object-cover shadow-lg" />
+            <Image src={user.profileImg as string} alt="Profile" className="h-40 w-40 rounded-full object-cover shadow-lg" />
             <div className="text-2xl font-bold text-gray-800">{user.name}</div>
             <div className="text-lg text-gray-600">@{user.username}</div>
             {session?.user.username === user.username && (
@@ -267,7 +268,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                           <Tooltip>
                             <TooltipTrigger>
                               <div className="badge-item flex flex-col items-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                                <img
+                                <Image
                                   src={badges[user.recentBadgeInWordsCategory as batchNames]}
                                   alt={user.recentBadgeInWordsCategory}
                                   className="w-24 h-20 object-contain mb-2"
@@ -285,7 +286,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                           <Tooltip>
                             <TooltipTrigger>
                               <div className="badge-item flex flex-col items-center bg-gradient-to-br from-pink-50 to-red-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                                <img
+                                <Image
                                   src={badges[user.recentBadgeInLikesCategory as batchNames]}
                                   alt={user.recentBadgeInLikesCategory}
                                   className="w-24 h-20 object-contain mb-3"
@@ -306,7 +307,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                           <Tooltip>
                             <TooltipTrigger>
                               <div className="badge-item flex flex-col items-center bg-gradient-to-br from-green-50 to-emerald-100 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                                <img
+                                <Image
                                   src={badges[user.recentBadgeInCommentsCategory as batchNames]}
                                   alt={user.recentBadgeInCommentsCategory}
                                   className="w-24 h-20 object-contain mb-3"
@@ -343,8 +344,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                         <Tooltip>
                           <TooltipTrigger>
                             <div key={badge.name} className="badge-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
-                              <img
-                                src={badge.imageUrl}
+                              <Image
+                                src={badge.imageUrl as string}
                                 alt={badge.name}
                                 className="w-20 h-20 object-contain mb-3 rounded-full border border-gray-200"
                               />
@@ -385,7 +386,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                             value={upcomingBadges[category].progress}
                             className="mb-3"
                           >
-                            <img
+                            <Image
                               src={badges[upcomingBadges[category].badgeName as batchNames]}
                               alt={upcomingBadges[category].badgeName}
                               className="w-16 h-16 object-contain"

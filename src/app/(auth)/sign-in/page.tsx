@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-const page = () => {
+const Page = () => {
     const { toast } = useToast();
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
@@ -146,4 +146,4 @@ const page = () => {
     );
 }
 
-export default page
+export default Page

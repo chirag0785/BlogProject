@@ -45,6 +45,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { comment } from "@/types/comment";
+import Image from "next/image";
 const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) => {
     const blogId = params.blogId;
     const creator = params.creator;
@@ -175,7 +176,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                     <div>
                         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">{blog?.heading}</h1>
                         <div className="flex items-center mb-6">
-                            <img className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg} alt={`${blogCreator?.name}'s profile`} />
+                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} />
                             <div>
                                 <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">{blogCreator?.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">Published in {blog?.topic} • {blog?.timeToRead}</p>
@@ -232,7 +233,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                                         render={({ field }) => (
                                                             <FormItem>
                                                                 <FormLabel className="flex items-center space-x-4">
-                                                                    <img className="h-8 w-8 rounded-full" src={session?.user.profileImg} alt={`${session?.user.name}'s profile`} />
+                                                                    <Image className="h-8 w-8 rounded-full" src={session?.user.profileImg as string} alt={`${session?.user.name}'s profile`} />
                                                                     <span>{session?.user.name}</span>
                                                                 </FormLabel>
                                                                 <FormControl>
@@ -262,7 +263,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                     {blog?.comments.map((comment, index) => (
                                         <Card key={index} className="my-4 dark:bg-gray-800 dark:text-gray-300">
                                             <CardHeader className="flex items-center space-x-4">
-                                                <img className="h-8 w-8 rounded-full" src={comment.profileImg} alt={`${comment.username}'s profile`} />
+                                                <Image className="h-8 w-8 rounded-full" src={comment.profileImg as string} alt={`${comment.username}'s profile`} />
                                                 <div>
                                                     <CardTitle className="text-lg font-semibold">{comment.username}</CardTitle>
                                                     <CardDescription className="text-sm text-gray-500 dark:text-gray-400">{comment.commentedAt.toLocaleString()}</CardDescription>
@@ -278,7 +279,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                         </div>
                         <hr className="my-6 border-gray-300 dark:border-gray-600" />
                         <div className="flex items-center">
-                            <img className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg} alt={`${blogCreator?.name}'s profile`} />
+                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} />
                             <div>
                                 <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">Written by {blogCreator?.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">Editor for {blog?.topic}</p>
