@@ -55,7 +55,7 @@ const Page = () => {
 
     useEffect(()=>{
         if(session && session.user && session?.user.username!='#'){   //already set the username
-            router.replace('/dashboard');
+            router.push('/dashboard');
             return;
         }
     },[session]);

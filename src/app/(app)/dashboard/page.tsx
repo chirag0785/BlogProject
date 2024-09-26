@@ -91,7 +91,7 @@ const Page = () => {
                           {blog.heading}
                         </CardTitle>
                         <CardDescription className="text-gray-600 flex items-center space-x-3">
-                          <Image src={blog.profileImg as string} alt={`${blog.name}'s profile`} className="w-12 h-12 rounded-full object-cover" />
+                          <Image src={blog.profileImg as string} alt={`${blog.name}'s profile`} width={40} height={40} className="w-12 h-12 rounded-full object-cover" />
                           <span className="text-sm">{blog.name} in {blog.topic}</span>
                         </CardDescription>
                       </CardHeader>

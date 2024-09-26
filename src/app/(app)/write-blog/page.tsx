@@ -63,7 +63,7 @@ const Page = () => {
                 description: "Blog added successfully"
             });
 
-            router.replace('/dashboard');
+            router.push('/dashboard');
         } catch (err) {
             const axiosError = err as AxiosError<ApiResponse>;
             toast({
