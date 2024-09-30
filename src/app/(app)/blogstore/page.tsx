@@ -1,7 +1,18 @@
 "use client"
 const Page = () => {
   return (
-    <div>page</div>
+    <>
+    <div>
+      Blog Store
+    </div>
+
+    <div>
+      {/* here i will have the store represting all items that can be purchased via credits */}
+      <div>
+        
+      </div>
+    </div>
+    </>
   )
 }
 

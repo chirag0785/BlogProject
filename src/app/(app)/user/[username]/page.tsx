@@ -203,7 +203,7 @@ const Page = ({ params }: { params: { username: string } }) => {
           <div className="flex flex-col items-center space-y-6 w-full max-w-md">
 
             
-            <Image src={user.profileImg as string} alt="Profile" className="h-40 w-40 rounded-full object-cover shadow-lg" />
+            <Image src={user.profileImg as string} alt="Profile" width={160} height={160} className="h-40 w-40 rounded-full object-cover shadow-lg"/>
             <div className="text-2xl font-bold text-gray-800">{user.name}</div>
             <div className="text-lg text-gray-600">@{user.username}</div>
             {session?.user.username === user.username && (
@@ -271,6 +271,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                                 <Image
                                   src={badges[user.recentBadgeInWordsCategory as batchNames]}
                                   alt={user.recentBadgeInWordsCategory}
+                                  width={96}
+                                  height={80}
                                   className="w-24 h-20 object-contain mb-2"
                                 />
                               </div>
@@ -289,6 +291,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                                 <Image
                                   src={badges[user.recentBadgeInLikesCategory as batchNames]}
                                   alt={user.recentBadgeInLikesCategory}
+                                  width={96}
+                                  height={80}
                                   className="w-24 h-20 object-contain mb-3"
                                 />
                                 
@@ -310,6 +314,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                                 <Image
                                   src={badges[user.recentBadgeInCommentsCategory as batchNames]}
                                   alt={user.recentBadgeInCommentsCategory}
+                                  width={96}
+                                  height={80}
                                   className="w-24 h-20 object-contain mb-3"
                                 />
                                 
@@ -347,6 +353,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                               <Image
                                 src={badge.imageUrl as string}
                                 alt={badge.name}
+                                width={80}
+                                  height={80}
                                 className="w-20 h-20 object-contain mb-3 rounded-full border border-gray-200"
                               />
                               <p className="text-center text-lg font-semibold text-gray-800">
@@ -390,6 +398,8 @@ const Page = ({ params }: { params: { username: string } }) => {
                               src={badges[upcomingBadges[category].badgeName as batchNames]}
                               alt={upcomingBadges[category].badgeName}
                               className="w-16 h-16 object-contain"
+                              width={64}
+                                  height={64}
                             />
                           </CircularProgress>
                           <p className="text-center text-sm font-medium text-gray-800 mt-2">

@@ -176,7 +176,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                     <div>
                         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">{blog?.heading}</h1>
                         <div className="flex items-center mb-6">
-                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} />
+                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} width={40} height={40}/>
                             <div>
                                 <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">{blogCreator?.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">Published in {blog?.topic} • {blog?.timeToRead}</p>
@@ -233,7 +233,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                                         render={({ field }) => (
                                                             <FormItem>
                                                                 <FormLabel className="flex items-center space-x-4">
-                                                                    <Image className="h-8 w-8 rounded-full" src={session?.user.profileImg as string} alt={`${session?.user.name}'s profile`} />
+                                                                    <Image className="h-8 w-8 rounded-full" src={session?.user.profileImg as string} alt={`${session?.user.name}'s profile`} width={32} height={32} />
                                                                     <span>{session?.user.name}</span>
                                                                 </FormLabel>
                                                                 <FormControl>
@@ -263,7 +263,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                     {blog?.comments.map((comment, index) => (
                                         <Card key={index} className="my-4 dark:bg-gray-800 dark:text-gray-300">
                                             <CardHeader className="flex items-center space-x-4">
-                                                <Image className="h-8 w-8 rounded-full" src={comment.profileImg as string} alt={`${comment.username}'s profile`} />
+                                                <Image className="h-8 w-8 rounded-full" src={comment.profileImg as string} alt={`${comment.username}'s profile`} width={32} height={32} />
                                                 <div>
                                                     <CardTitle className="text-lg font-semibold">{comment.username}</CardTitle>
                                                     <CardDescription className="text-sm text-gray-500 dark:text-gray-400">{comment.commentedAt.toLocaleString()}</CardDescription>
@@ -279,7 +279,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                         </div>
                         <hr className="my-6 border-gray-300 dark:border-gray-600" />
                         <div className="flex items-center">
-                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} />
+                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} width={40} height={40} />
                             <div>
                                 <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">Written by {blogCreator?.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">Editor for {blog?.topic}</p>

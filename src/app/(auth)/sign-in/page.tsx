@@ -42,8 +42,9 @@ const Page = () => {
                 title: "Success",
                 description: "Sign in success",
             });
+            router.refresh();
+            router.push('/dashboard')
 
-            router.push('/dashboard');
         } catch (err) {
             const axiosError = err as AxiosError<ApiResponse>;
             toast({
@@ -67,6 +68,7 @@ const Page = () => {
                 });
                 return;
             }
+            router.refresh();
             router.replace('/dashboard');
         }catch(err:any){
             toast({
