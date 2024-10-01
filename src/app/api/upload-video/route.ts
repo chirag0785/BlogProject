@@ -9,7 +9,7 @@ export async function POST(request:Request){
             {success:false,url:""}
         ,{status:404});
     }
-    let response;;
+    let response;
     try {
         response = await uploadVideoOnCloudinary(video);
         if (!response) {
