@@ -4,7 +4,7 @@ import path from "path";
 export const getFilePathOnUpload = async function (file: File): Promise<string> {
     const buffer = Buffer.from(await file.arrayBuffer());
     const filename = Date.now() + file.name.replaceAll(" ", "_");
-    const filePath = path.join(process.cwd(), "public/images", filename);
+    const filePath = path.join(process.cwd(), "src/assets", filename);
     
     try {
         await writeFile(filePath, buffer);
