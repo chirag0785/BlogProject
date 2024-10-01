@@ -1,16 +1,25 @@
-import { writeFile } from "fs/promises";
-import path from "path";
+import AWS from 'aws-sdk';
 
-export const getFilePathOnUpload = async function (file: File): Promise<string> {
+const s3 = new AWS.S3();
+
+export const uploadToS3 = async function (file: File): Promise<string> {
     const buffer = Buffer.from(await file.arrayBuffer());
-    const filename = Date.now() + file.name.replaceAll(" ", "_");
-    const filePath = path.join(process.cwd(), "src/assets", filename);
-    
+    const timestamp = Date.now();
+    const sanitizedFilename = file.name.replace(/[^a-z0-9.]/gi, '_').toLowerCase();
+    const filename = `${timestamp}_${sanitizedFilename}`;
+
+    const params = {
+        Bucket: "your-bucket-name", // replace with your S3 bucket name
+        Key: filename, // the file's name
+        Body: buffer,
+        ContentType: file.type,
+    };
+
     try {
-        await writeFile(filePath, buffer);
-        return filePath;
+        const data = await s3.upload(params).promise();
+        return data.Location; // the URL of the uploaded file
     } catch (err) {
-        console.error("Error uploading file to folder:", err);
-        throw new Error("Error uploading file to folder");
+        console.error("Error uploading file to S3:", err);
+        throw new Error("Error uploading file to S3");
     }
 };
