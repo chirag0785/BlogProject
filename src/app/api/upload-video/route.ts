@@ -1,25 +1,19 @@
-import { uploadOnCloudinary } from "@/utils/cloudinary";
+import { uploadVideoOnCloudinary } from "@/utils/cloudinary";
 import { getFilePathOnUpload } from "@/utils/uploadFile";
+
 
 export async function POST(request:Request){
     const formData=await request.formData();
-
-    const file=formData.get('image') as File || null;
-
-    if (!file) {
+    const video=formData.get('video') as File || null;
+    if(!video){
         return Response.json(
-            {
-                success: false,
-                message: "Image not provided",
-            },
-            { status: 401 }
-        );
+            {success:false,url:""}
+        ,{status:404});
     }
     let filePath, response;
     try {
-        filePath = await getFilePathOnUpload(file);
-        response = await uploadOnCloudinary(filePath);
-
+        filePath = await getFilePathOnUpload(video);
+        response = await uploadVideoOnCloudinary(filePath);
         if (!response) {
             return Response.json(
                 {
@@ -41,7 +35,7 @@ export async function POST(request:Request){
 
     return Response.json({
         success:true,
-        message:"Image upload success",
+        message:"Video upload success",
         url:response.secure_url
     },{status:200});
 }

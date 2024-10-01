@@ -2,7 +2,7 @@ import sendVerificationEmail from "@/helpers/sendVerificationEmail";
 import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { uploadOnCloudinary } from "@/utils/cloudinary";
-import { getFilePathOnUpload } from "@/utils/uploadImage";
+import { getFilePathOnUpload } from "@/utils/uploadFile";
 import bcrypt from "bcryptjs";
 export async function POST(request: Request) {
     await dbConnect();

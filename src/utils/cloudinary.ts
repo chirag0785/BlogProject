@@ -21,3 +21,24 @@ export const uploadOnCloudinary=async function(filePath:string) : Promise<Upload
         throw new Error("Error uploading file on cloudinary")
     }
 }
+export const uploadVideoOnCloudinary=async function(filePath:string) : Promise<UploadApiResponse|null>{
+    if(!filePath){
+        return null;
+    }
+    try{
+        const response=await cloudinary.uploader.upload(filePath,{
+            resource_type:"video",
+            transformation:[{
+                width:1920,
+                height:1080,
+                crop:"limit",
+                quality:"auto",
+            }]
+        });
+        console.log("File is uploaded successfully",response.secure_url);
+        return response;
+    }catch(err){
+        console.error("Error uploading file on cloudinary");
+        throw new Error("Error uploading file on cloudinary")
+    }
+}

@@ -10,7 +10,7 @@ export const getFilePathOnUpload = async function (file: File): Promise<string> 
         await writeFile(filePath, buffer);
         return filePath;
     } catch (err) {
-        console.error("Error uploading image to folder:", err);
-        throw new Error("Error uploading image to folder");
+        console.error("Error uploading file to folder:", err);
+        throw new Error("Error uploading file to folder");
     }
 };
