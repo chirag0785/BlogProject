@@ -1,5 +1,4 @@
 import { uploadVideoOnCloudinary } from "@/utils/cloudinary";
-import { getFilePathOnUpload } from "@/utils/uploadFile";
 
 
 export async function POST(request:Request){

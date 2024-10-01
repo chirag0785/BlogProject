@@ -1,5 +1,4 @@
 import { uploadOnCloudinary } from "@/utils/cloudinary";
-import { getFilePathOnUpload } from "@/utils/uploadFile";
 
 export async function POST(request:Request){
     const formData=await request.formData();
