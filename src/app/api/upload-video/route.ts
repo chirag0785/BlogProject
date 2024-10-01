@@ -10,10 +10,9 @@ export async function POST(request:Request){
             {success:false,url:""}
         ,{status:404});
     }
-    let filePath, response;
+    let response;;
     try {
-        filePath = await getFilePathOnUpload(video);
-        response = await uploadVideoOnCloudinary(filePath);
+        response = await uploadVideoOnCloudinary(video);
         if (!response) {
             return Response.json(
                 {

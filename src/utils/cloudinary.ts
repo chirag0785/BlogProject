@@ -6,39 +6,61 @@ cloudinary.config({
     api_key:process.env.CLOUDINARY_API_KEY,
     api_secret:process.env.CLOUDINARY_API_SECRET
 });
-export const uploadOnCloudinary=async function(filePath:string) : Promise<UploadApiResponse|null>{
-    if(!filePath){
+
+interface CloudinaryUploadResult extends UploadApiResponse{
+    public_id:string,
+}
+export const uploadOnCloudinary=async function(file:File) : Promise<any>{
+    if(!file){
         return null;
     }
+
+    const bytes=await file.arrayBuffer();
+    const buffer=Buffer.from(bytes);
+
     try{
-        const response=await cloudinary.uploader.upload(filePath);
-        console.log("File is uploaded successfully",response.secure_url);
-        fs.unlinkSync(filePath);
-        return response;
+        const result=await new Promise<CloudinaryUploadResult>((resolve,reject)=>{
+            const uploadStream=cloudinary.uploader.upload_stream((error,result)=>{
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(result as CloudinaryUploadResult);
+                }
+            })
+            uploadStream.end(buffer);
+        })
+
+        console.log("File is uploaded successfully");
+        return result;
     }catch(err){
-        fs.unlinkSync(filePath);
         console.error("Error uploading file on cloudinary");
         throw new Error("Error uploading file on cloudinary")
     }
 }
-export const uploadVideoOnCloudinary=async function(filePath:string) : Promise<UploadApiResponse|null>{
-    if(!filePath){
+export const uploadVideoOnCloudinary=async function(file:File) : Promise<any>{
+    if(!file){
         return null;
     }
+
+    const bytes=await file.arrayBuffer();
+    const buffer=Buffer.from(bytes);
+
     try{
-        const response=await cloudinary.uploader.upload(filePath,{
-            resource_type:"video",
-            transformation:[{
-                width:1920,
-                height:1080,
-                crop:"limit",
-                quality:"auto",
-            }]
-        });
-        console.log("File is uploaded successfully",response.secure_url);
-        return response;
+        const result=await new Promise<CloudinaryUploadResult>((resolve,reject)=>{
+            const uploadStream=cloudinary.uploader.upload_stream({resource_type:"video",quality:'auto'},(error,result)=>{
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(result as CloudinaryUploadResult);
+                }
+            })
+            uploadStream.end(buffer);
+        })
+
+        console.log("Video is uploaded successfully");
+        return result;
     }catch(err){
-        console.error("Error uploading file on cloudinary");
-        throw new Error("Error uploading file on cloudinary")
+        console.error("Error uploading Video on cloudinary");
+        throw new Error("Error uploading video on cloudinary")
     }
 }
