@@ -4,6 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import {client} from "@/utils/recombee";
+import recombee from "recombee-api-client"
 export const authOptions:NextAuthOptions={
     providers:[
         CredentialsProvider({
@@ -15,6 +17,7 @@ export const authOptions:NextAuthOptions={
             },
             async authorize(credentials:any):Promise<any>{
                 await dbConnect();
+                let existingUser;
                 try{
                     const user=await UserModel.findOne({
                         $or:[
@@ -38,8 +41,11 @@ export const authOptions:NextAuthOptions={
                     if(!isPasswordCorrect){
                         throw new Error("Invalid password");
                     }
+                    existingUser=user;
+                    
                     return user;
                 }catch(err:any){
+                    
                     throw new Error(err)
                 }
             },
@@ -123,7 +129,10 @@ export const authOptions:NextAuthOptions={
                         name:profile?.name,
                         profileImg:profile?.picture
                     });
-
+                    const rqs=recombee.requests;
+                    let reqs=new rqs.AddUser(newUser._id as string);
+                    reqs.timeout=10000;
+                    await client.send(reqs);
                     return true;
                 }catch(err){
                     console.error('Error handling Google sign-in:', err);

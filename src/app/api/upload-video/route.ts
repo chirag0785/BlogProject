@@ -1,6 +1,4 @@
 import { uploadVideoOnCloudinary } from "@/utils/cloudinary";
-
-
 export async function POST(request:Request){
     const formData=await request.formData();
     const video=formData.get('video') as File || null;

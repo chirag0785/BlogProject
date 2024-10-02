@@ -3,6 +3,8 @@ import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { uploadOnCloudinary } from "@/utils/cloudinary";
 import bcrypt from "bcryptjs";
+import {client} from "@/utils/recombee";
+import recombee from "recombee-api-client"
 export async function POST(request: Request) {
     await dbConnect();
     const formData = await request.formData();
@@ -87,9 +89,11 @@ export async function POST(request: Request) {
             verifyCodeExpiry: new Date(Date.now() + 7200000),
             profileImg: response.secure_url,
         });
+        const rqs=recombee.requests;
+        let reqs=new rqs.AddUser(newUser._id as string);
+        reqs.timeout=10000;
+        await client.send(reqs);
     }
-
-
     try{
         const response=await sendVerificationEmail({username,verifyCode,email});
         console.log(response);
