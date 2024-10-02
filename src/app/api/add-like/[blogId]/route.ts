@@ -4,7 +4,8 @@ import { authOptions } from "../../auth/[...nextauth]/options";
 import BlogModel from "@/model/Blog";
 import UserModel from "@/model/User";
 import { assignBatches } from "@/lib/assignBatches";
-
+import recombee from "recombee-api-client";
+import { client } from "@/utils/recombee";
 export async function POST(request:Request,route:{params:{blogId:string}}){
     await dbConnect();
     const {blogId}=route.params;
@@ -41,6 +42,14 @@ export async function POST(request:Request,route:{params:{blogId:string}}){
 
 
         await assignBatches(foundUser._id as string);
+
+        const reqs=recombee.requests;
+        let tempReqs=new reqs.AddRating(user._id as string,blogId,1,{
+            'timestamp':new Date().toISOString()
+        });
+
+        tempReqs.timeout=10000;
+        await client.send(tempReqs);
         return Response.json({
             success:true,
             message:"Like added success",

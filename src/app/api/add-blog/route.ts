@@ -5,8 +5,10 @@ import UserModel from "@/model/User";
 import BlogModel from "@/model/Blog";
 import mongoose from "mongoose";
 import { assignBatches } from "@/lib/assignBatches";
-
+import { client } from "@/utils/recombee";
+import recombee from "recombee-api-client";
 export async function POST(request:Request){
+
     await dbConnect();
     const session=await getServerSession(authOptions);
     if(!session || !session.user){
@@ -45,6 +47,21 @@ export async function POST(request:Request){
         await foundUser.save();
 
         await assignBatches(foundUser._id as string);
+        
+        
+        const rqs=recombee.requests;
+
+        let reqs=new rqs.SetItemValues(
+            newBlog._id as string,
+            {
+                topic:newBlog.topic,
+                heading:newBlog.heading,
+                creator:newBlog.creator,
+                content:newBlog.content
+            },
+            {"cascadeCreate":true});
+        reqs.timeout=10000;
+        await client.send(reqs);
         return Response.json({
             success:true,
             message:"Blog added success"

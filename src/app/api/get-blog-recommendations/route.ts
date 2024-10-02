@@ -1,12 +1,10 @@
 import { dbConnect } from "@/lib/dbConnect";
-import BlogModel from "@/model/Blog";
-import { authOptions } from "../../auth/[...nextauth]/options";
+import { authOptions } from "../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import recombee from "recombee-api-client";
 import {client} from "@/utils/recombee";
-export async function GET(request:Request,route:{params:{blogId:string}}){
+export async function GET(request:Request){
     await dbConnect();
-    const {blogId}=route.params;
 
     const session=await getServerSession(authOptions);
     if(!session || !session.user){
@@ -16,28 +14,15 @@ export async function GET(request:Request,route:{params:{blogId:string}}){
         },{status:401});
     }
     try{
-        const blog=await BlogModel.findOne({_id:blogId});
-
-        if(!blog){
-            return Response.json({
-                success:false,
-                message:`Blog not found with id ${blogId}`
-            },{status:404});
-        }
-        console.log("here");
         const reqs=recombee.requests;
 
-        let tempReqs=new reqs.AddDetailView(session.user._id as string,blogId,{
-            'timestamp':new Date().toISOString(),
-            'cascadeCreate':true
-        });
-
+        let tempReqs=new reqs.RecommendItemsToUser(session.user._id as string, 5);
         tempReqs.timeout=10000;
-        await client.send(tempReqs);
+        const response=await client.send(tempReqs);
         return Response.json({
             success:true,
-            message:"Blog fetched successfully",
-            blog:blog
+            message:"Recommended blogs fetched",
+            blogs:response.recomms
         },{status:200});
     }catch(err){
         console.log(err);

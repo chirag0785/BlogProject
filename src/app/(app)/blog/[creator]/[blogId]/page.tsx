@@ -129,7 +129,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                 variant: "destructive"
             });
         }
-    }, [blogId, toast, session]);
+    }, [blogId, toast]);
 
     const fetchCreator = useCallback(async () => {
         setIsFetchedCreator(false);
@@ -145,15 +145,15 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                 variant: "destructive"
             });
         }
-    }, [creator, toast, session]);
+    }, [creator, toast]);
 
     useEffect(() => {
         fetchBlog();
-    }, [blogId, fetchBlog, session]);
+    }, [blogId, fetchBlog]);
 
     useEffect(() => {
         fetchCreator();
-    }, [creator, fetchCreator, session]);
+    }, [creator, fetchCreator]);
 
     return (
         <div className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg max-w-3xl mx-auto min-h-[80vh] flex flex-col justify-between">
