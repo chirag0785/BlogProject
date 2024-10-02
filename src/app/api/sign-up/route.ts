@@ -2,7 +2,6 @@ import sendVerificationEmail from "@/helpers/sendVerificationEmail";
 import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { uploadOnCloudinary } from "@/utils/cloudinary";
-import { getFilePathOnUpload } from "@/utils/uploadFile";
 import bcrypt from "bcryptjs";
 import {client} from "@/utils/recombee";
 import recombee from "recombee-api-client"
@@ -59,11 +58,9 @@ export async function POST(request: Request) {
                 { status: 401 }
             );
         }
-        let filePath, response;
+        let response;
         try {
-            filePath = await getFilePathOnUpload(file);
-            response = await uploadOnCloudinary(filePath);
-
+            response = await uploadOnCloudinary(file);
             if (!response) {
                 return Response.json(
                     {

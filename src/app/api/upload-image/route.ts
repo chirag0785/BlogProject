@@ -1,5 +1,4 @@
 import { uploadOnCloudinary } from "@/utils/cloudinary";
-import { getFilePathOnUpload } from "@/utils/uploadFile";
 
 export async function POST(request:Request){
     const formData=await request.formData();
@@ -15,10 +14,9 @@ export async function POST(request:Request){
             { status: 401 }
         );
     }
-    let filePath, response;
+    let response;
     try {
-        filePath = await getFilePathOnUpload(file);
-        response = await uploadOnCloudinary(filePath);
+        response = await uploadOnCloudinary(file);
 
         if (!response) {
             return Response.json(
