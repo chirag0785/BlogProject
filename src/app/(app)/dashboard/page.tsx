@@ -62,7 +62,7 @@ const Page = () => {
   useEffect(()=>{
     const topic="Self Improvement";
     fetchBlogsByTopic(topic);
-  },[session]);
+  },[]);
 
   return (
     <div className="container mx-auto p-6">
