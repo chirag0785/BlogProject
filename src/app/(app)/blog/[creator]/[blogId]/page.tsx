@@ -217,7 +217,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                 <SheetTrigger asChild>
                                     <div className="flex items-center space-x-2 cursor-pointer">
                                         <FaComment className="text-blue-500" />
-                                        <span>{(blog as Blog)?.comments.length > 0 ? (blog as Blog)?.comments.length : '0'}</span>
+                                        <span>{(blog as Blog)?.comments?.length > 0 ? (blog as Blog)?.comments?.length : '0'}</span>
                                     </div>
                                 </SheetTrigger>
                                 <SheetContent side="right" className="w-full md:w-2/3 lg:w-1/2 overflow-scroll">
@@ -260,7 +260,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                         </SheetDescription>
                                     </SheetHeader>
 
-                                    {blog?.comments.map((comment, index) => (
+                                    {blog?.comments?.map((comment, index) => (
                                         <Card key={index} className="my-4 dark:bg-gray-800 dark:text-gray-300">
                                             <CardHeader className="flex items-center space-x-4">
                                                 <Image className="h-8 w-8 rounded-full" src={comment.profileImg as string} alt={`${comment.username}'s profile`} width={32} height={32} />

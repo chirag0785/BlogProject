@@ -171,7 +171,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                           </div>
                           <div className="flex items-center space-x-1">
                             <FaComment className="text-blue-500" />
-                            <span>{(blog.blogId as any)?.comments.length > 0 ? (blog.blogId as any)?.comments.length : ''}</span>
+                            <span>{(blog.blogId as any)?.comments?.length > 0 ? (blog.blogId as any)?.comments.length : ''}</span>
                           </div>
                         </div>
                         <p className="text-sm">{new Date((blog.blogId as any)?.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -340,7 +340,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                 <DrawerContent className="p-6 bg-white rounded-lg shadow-lg">
                   <DrawerHeader>
                     <DrawerTitle className="text-2xl font-bold text-gray-900">
-                      Badges ({user.badges.length})
+                      Badges ({user?.badges?.length})
                     </DrawerTitle>
                   </DrawerHeader>
 

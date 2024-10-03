@@ -131,7 +131,7 @@ const Page = () => {
                           </div>
                           <div className="flex items-center space-x-2">
                             <FaComment className="text-blue-500" />
-                            <span>{blog.comments.length > 0 ? blog.comments.length : ''}</span>
+                            <span>{blog.comments?.length > 0 ? blog.comments.length : ''}</span>
                           </div>
                         </div>
                         <p className="text-sm">{new Date(blog.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -192,7 +192,7 @@ const Page = () => {
                           </div>
                           <div className="flex items-center space-x-2">
                             <FaComment className="text-blue-500" />
-                            <span>{blog.comments.length > 0 ? blog.comments.length : ''}</span>
+                            <span>{blog.comments?.length > 0 ? blog.comments.length : ''}</span>
                           </div>
                         </div>
                         <p className="text-sm">{new Date(blog.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
