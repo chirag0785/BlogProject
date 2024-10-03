@@ -26,22 +26,22 @@ export async function POST(request:Request,route:{params:{blogId:string}}){
                 message:"Blog not found"
             },{status:404})
         }
-        const foundUser=await UserModel.findOne({_id:user._id});
+        const creatorUser=await UserModel.findOne({username:blog.creator});
 
-        if(!foundUser){
+        if(!creatorUser){
             return Response.json({
                 success:false,
-                message:"User not found"
+                message:"Creator not found"
             },{status:404})
         }
         blog.likes++;
 
-        foundUser.likes++;
+        creatorUser.likes++;
         await blog.save();
-        await foundUser.save();
+        await creatorUser.save();
 
 
-        await assignBatches(foundUser._id as string);
+        await assignBatches(creatorUser._id as string);
 
         const reqs=recombee.requests;
         let tempReqs=new reqs.AddRating(user._id as string,blogId,1,{

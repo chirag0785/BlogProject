@@ -27,12 +27,12 @@ export async function POST(request:Request,route:{params:{blogId:string}}){
                 message:"Blog not found"
             },{status:404})
         }
-        const foundUser=await UserModel.findOne({_id:user._id});
+        const creatorUser=await UserModel.findOne({username:blog.creator});
 
-        if(!foundUser){
+        if(!creatorUser){
             return Response.json({
                 success:false,
-                message:"User not found"
+                message:"Creator not found"
             },{status:404})
         }
         blog.comments.push({
@@ -42,11 +42,11 @@ export async function POST(request:Request,route:{params:{blogId:string}}){
             commentedAt:new Date(Date.now())
         })
 
-        foundUser.comments++;
+        creatorUser.comments++;
         await blog.save();
-        await foundUser.save();
+        await creatorUser.save();
 
-        await assignBatches(foundUser._id as string);
+        await assignBatches(creatorUser._id as string);
         return Response.json({
             success:true,
             message:"Comment added success",
