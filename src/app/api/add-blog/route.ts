@@ -18,13 +18,12 @@ export async function POST(request:Request){
         },{status:401})
     }
 
-    
     const {topic,heading,content,wordCount}=await request.json();
     const user:User=session.user as User;
 
     try{
         const foundUser=await UserModel.findOne({_id:user._id});
-
+        
         if(!foundUser){
             return Response.json({
                 success:false,

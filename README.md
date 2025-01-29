@@ -1,5 +1,7 @@
 # Blog Creator
 
+[Deployed url](https://blog-creator-3gdz.vercel.app)
+
 ### A Modern Blog Creation Platform Built with Next.js
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)

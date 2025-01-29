@@ -5,7 +5,7 @@ export async function GET(request:Request,route:{params:{topic:string}}){
     const {topic}=route.params;
 
     try{
-        const blogs=await BlogModel.find({topic:topic.toLowerCase()}).select("-content");
+        const blogs=await BlogModel.find({topic:topic.toLowerCase(),public:true}).select("-content");
         return Response.json({
             success:true,
             message:`Blogs of topic ${topic} fetched success`,

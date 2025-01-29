@@ -13,6 +13,9 @@ export interface Blog extends Document{
     createdAt:Date,
     profileImg:string,
     name:string
+    editAccess:mongoose.Types.ObjectId[];
+    accessToAll:boolean;
+    public:boolean
 }
 
 const blogSchema=new Schema<Blog>({
@@ -73,6 +76,21 @@ const blogSchema=new Schema<Blog>({
     name:{
         type:String,
         required:true
+    },
+    editAccess:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ],
+    accessToAll:{
+        type:Boolean,
+        required:true
+    },
+    public:{
+        type:Boolean,
+        required:true,
+        default:false
     }
 })
 

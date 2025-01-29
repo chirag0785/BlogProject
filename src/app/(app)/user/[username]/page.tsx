@@ -54,13 +54,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Image from "next/image";
+import { Blog } from "@/model/Blog";
 const Page = ({ params }: { params: { username: string } }) => {
   const { data: session } = useSession();
   const { username } = params;
   const [isFetched, setIsFetched] = useState(false);
   const [user, setUser] = useState<User>({} as User);
   const [upcomingBadges, setUpcomingBadges] = useState<UpcomingBadges>({});
-  
+  const [privateBlogs, setPrivateBlogs] = useState<Blog[]>([]);
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<z.infer<typeof editProfileSchema>>({
@@ -118,12 +119,45 @@ const Page = ({ params }: { params: { username: string } }) => {
     }
   }, [username, session]);
 
-
+  const fetchPrivateBlogs = useCallback(async () => {
+    try {
+      const response = await axios.get(`/api/get-private-blogs/${username}`);
+      setPrivateBlogs(response.data.blogs as Blog[]);
+    } catch (err) {
+      const axiosError = err as AxiosError<ApiResponse>;
+      toast({
+        title: "Error",
+        description: axiosError.response?.data.message,
+        variant: "destructive",
+      });
+    }
+  }, [username, session]);
   useEffect(() => {
     fetchUserDetails();
-    
+    fetchPrivateBlogs();
   }, [fetchUserDetails, username, session]);
 
+
+  const editBlog = (blog: Blog) => {
+    axios.post('/api/add-room',{
+      id:session?.user._id,
+      blog
+    })
+    .then((response)=>{
+      return response.data;
+    })
+    .then((data)=>{
+      router.push(`/edit-blog/${data.roomId}?blogId=${blog._id}`);
+    })
+    .catch((error)=>{
+      console.log(error);
+      toast({
+        title: "Error",
+        description: error?.response?.data?.message || error.message || "Unknown error occurred",
+        variant: "destructive",
+      });
+    })
+  }
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
 
@@ -179,6 +213,40 @@ const Page = ({ params }: { params: { username: string } }) => {
                     </Card>
                   })}
 
+
+                  <div>Private Blogs yet to be published</div>
+                  
+                  {privateBlogs.map((blog) => {
+                    return <Card className="border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer" key={blog._id as any}>
+                      <CardHeader>
+                        <CardTitle className="text-xl font-semibold text-gray-800">
+                          {blog.heading}
+                        </CardTitle>
+                        <CardDescription className="text-gray-600">
+                          {user.name} in {blog.topic}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="py-4 text-gray-700">
+                        <p className="mb-2">{blog.timeToRead}</p>
+                      </CardContent>
+                      <CardFooter className="flex justify-between items-center text-gray-500">
+                        <div className="flex items-center space-x-4">
+                          <div className="flex items-center space-x-1">
+                            <FaHeart className="text-red-500" />
+                            <span>{blog.likes > 0 ? blog.likes : ''}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <FaComment className="text-blue-500" />
+                            <span>{blog.comments?.length > 0 ? blog.comments.length : ''}</span>
+                          </div>
+                        </div>
+                        <p className="text-sm">{new Date(blog.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      </CardFooter>
+
+                      <button 
+                        onClick={()=> editBlog(blog)} className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Edit Blog</button>
+                    </Card>
+                  })}
 
                 </div>
               </TabsContent>
