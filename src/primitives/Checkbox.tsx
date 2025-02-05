@@ -73,3 +73,4 @@ export function Checkbox({
     </div>
   );
 }
+Checkbox.displayName = "Checkbox";

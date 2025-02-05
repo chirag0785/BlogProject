@@ -106,3 +106,5 @@ export function Select({
     </RadixSelect.Root>
   );
 }
+
+Select.displayName = "Select";

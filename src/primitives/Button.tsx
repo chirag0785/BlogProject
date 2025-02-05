@@ -35,6 +35,9 @@ export const Button = forwardRef<HTMLButtonElement, ComponentProps<"button"> & P
   )
 );
 
+// Adding displayName to Button component
+Button.displayName = "Button";
+
 export function LinkButton({
   variant = "primary",
   icon,
@@ -66,3 +69,6 @@ export function LinkButton({
     </Link>
   );
 }
+
+// Adding displayName to LinkButton component
+LinkButton.displayName = "LinkButton";
