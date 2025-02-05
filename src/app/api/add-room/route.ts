@@ -3,6 +3,7 @@ import RoomModel from "@/model/Room";
 import { NextRequest, NextResponse } from "next/server";
 import {liveblocks} from "@/lib/liveblocks";
 import { Blog } from "@/model/Blog";
+import {supabaseClient} from "@/lib/supabase";
 export async function POST(request:NextRequest){
     await dbConnect();
     const {id,blog}:{id:any,blog:Blog}=await request.json();
@@ -37,6 +38,31 @@ export async function POST(request:NextRequest){
             defaultAccesses: [],
             usersAccesses: userAccesses
         });
+
+        // await liveblocks.initializeStorageDocument(`blog-room:${room._id}`,{
+        //     data:{
+        //         doc:{
+        //             type:"doc",
+        //             content:[]
+        //         }
+        //     },
+        //     liveblocksType:"LiveObject"
+        // })
+
+        const {data,error}=await supabaseClient.from("blog").insert({
+            roomId:room?._id,
+            topic:room?.topic,
+            heading:room?.heading,
+            content:blog?.content || ""
+        })
+
+        if(error){
+            console.error(error);
+            return NextResponse.json({
+                success:false,
+                message:"Internal server error"
+            },{status:500})
+        }
         return NextResponse.json({
             success:true,
             roomId:room._id

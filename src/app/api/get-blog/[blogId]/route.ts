@@ -16,7 +16,7 @@ export async function GET(request:Request,route:{params:{blogId:string}}){
         },{status:401});
     }
     try{
-        const blog=await BlogModel.findOne({_id:blogId});
+        const blog=await BlogModel.findOne({_id:blogId}).populate('collaborators','name profileImg');
 
         if(!blog){
             return Response.json({
@@ -34,6 +34,9 @@ export async function GET(request:Request,route:{params:{blogId:string}}){
 
         tempReqs.timeout=10000;
         await client.send(tempReqs);
+
+        console.log(blog);
+        
         return Response.json({
             success:true,
             message:"Blog fetched successfully",

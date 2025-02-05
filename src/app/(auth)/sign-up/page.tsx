@@ -91,12 +91,12 @@ const Page = () => {
   }, [checkUsernameUnique, username]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-700">
-      <div className="max-w-md w-full bg-gray-300 p-8 shadow-lg rounded-lg">
-        <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">
+    <div className="flex items-center justify-center min-h-screen bg-gray-700 dark:bg-gray-900">
+      <div className="max-w-md w-full bg-gray-300 dark:bg-gray-800 p-8 shadow-lg rounded-lg">
+        <h2 className="text-3xl font-bold text-center mb-4 text-gray-800 dark:text-gray-100">
           Welcome to BlogCreator
         </h2>
-        <p className="text-center text-gray-600 mb-6">
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
           Start your journey by creating your account.
         </p>
         <Form {...form}>
@@ -106,7 +106,7 @@ const Page = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">Username</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your username"
@@ -115,13 +115,13 @@ const Page = () => {
                         field.onChange(ev.target.value);
                         debounced(ev.target.value);
                       }}
-                      className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                     />
                   </FormControl>
                   {isCheckLoading ? (
                     <Loader2 className="animate-spin mt-1" />
                   ) : (
-                    <div className="text-sm text-gray-500 mt-1">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       {usernameMsg}
                     </div>
                   )}
@@ -134,12 +134,12 @@ const Page = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">Email</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your email"
                       {...field}
-                      className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -151,13 +151,13 @@ const Page = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">Password</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your password"
                       {...field}
                       type="password"
-                      className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -169,12 +169,12 @@ const Page = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">Name</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your name"
                       {...field}
-                      className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -186,7 +186,7 @@ const Page = () => {
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Profile Image</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">Profile Image</FormLabel>
                   <FormControl>
                     <Input
                       id="image"
@@ -196,7 +196,7 @@ const Page = () => {
                         const file = e.target.files?.[0];
                         field.onChange(file);
                       }}
-                      className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -208,21 +208,22 @@ const Page = () => {
             ) : (
               <Button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md dark:bg-indigo-700 dark:hover:bg-indigo-800"
               >
                 Signup
               </Button>
             )}
           </form>
         </Form>
-        <p className="text-center text-gray-600 mt-4">
+        <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-indigo-600 hover:underline">
+          <Link href="/sign-in" className="text-indigo-600 hover:underline dark:text-indigo-400">
             Sign in
           </Link>
         </p>
       </div>
     </div>
+
   );
 };
 

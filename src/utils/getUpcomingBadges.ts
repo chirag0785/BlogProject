@@ -17,16 +17,16 @@ export function getUpcomingBadges({wordCount,likes,comments}:{wordCount:number,l
         };
         if(wordCount>=0 && wordCount<5000){
             const progress=100*((wordCount-0)/5000);
-            upcomingBadge["WordCount"]={badgeName:"WordSmith-I",progress}
+            upcomingBadge["WordCount"]={badgeName:"WordSmith-I",progress:Number(progress.toFixed(2))}
         }
 
         else if(wordCount>=5000 && wordCount<15000){
             const progress=100*((wordCount-5000)/10000);
-            upcomingBadge["WordCount"]={badgeName:"WordSmith-II",progress}
+            upcomingBadge["WordCount"]={badgeName:"WordSmith-II",progress:Number(progress.toFixed(2))}
         }
         else if(wordCount>=15000 && wordCount<30000){
             const progress=100*((wordCount-15000)/15000);
-            upcomingBadge["WordCount"]={badgeName:"WordSmith-III",progress}
+            upcomingBadge["WordCount"]={badgeName:"WordSmith-III",progress:Number(progress.toFixed(2))}
         }
 
 
@@ -34,31 +34,30 @@ export function getUpcomingBadges({wordCount,likes,comments}:{wordCount:number,l
 
         if(likes>=0 && likes<100){
             const progress=100*((likes-0)/100);
-            upcomingBadge["Likes"]={badgeName:"Popular",progress}
+            upcomingBadge["Likes"]={badgeName:"Popular",progress:Number(progress.toFixed(2))}
         }
         else if(likes>=100 && likes<300){
             const progress=100*((likes-100)/200);
-            upcomingBadge["Likes"]={badgeName:"Trending",progress}
+            upcomingBadge["Likes"]={badgeName:"Trending",progress:Number(progress.toFixed(2))}
         }
         else if(likes>=300 && likes<1000){
             const progress=100*((likes-300)/700);
-            upcomingBadge["Likes"]={badgeName:"Iconic",progress}
+            upcomingBadge["Likes"]={badgeName:"Iconic",progress:Number(progress.toFixed(2))}
         }
 
 
 
         if(comments>=0 && comments<50){
             const progress=100*((comments-0)/50);
-            upcomingBadge["Comments"]={badgeName:"Conversationalist",progress}
+            upcomingBadge["Comments"]={badgeName:"Conversationalist",progress:Number(progress.toFixed(2))}
         }
         else if(comments>=50 && comments<100){
             const progress=100*((comments-50)/50);
-            upcomingBadge["Comments"]={badgeName:"Discussion Starter",progress}
+            upcomingBadge["Comments"]={badgeName:"Discussion Starter",progress:Number(progress.toFixed(2))}
         }
         else if(comments>=100 && comments<500){
             const progress=100*((comments-100)/400);
-            upcomingBadge["Comments"]={badgeName:"Community Leader",progress}
+            upcomingBadge["Comments"]={badgeName:"Community Leader",progress:Number(progress.toFixed(2))}
         }
-
         return upcomingBadge;
 }

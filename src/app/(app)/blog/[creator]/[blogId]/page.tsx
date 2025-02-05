@@ -176,7 +176,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                     <div>
                         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">{blog?.heading}</h1>
                         <div className="flex items-center mb-6">
-                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} width={40} height={40}/>
+                            <Image className="h-10 w-10 rounded-full mr-4" src={blogCreator?.profileImg as string} alt={`${blogCreator?.name}'s profile`} width={40} height={40} />
                             <div>
                                 <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">{blogCreator?.name}</p>
                                 <p className="text-gray-500 dark:text-gray-400">Published in {blog?.topic} • {blog?.timeToRead}</p>
@@ -212,7 +212,6 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                 </Tooltip>
                             </TooltipProvider>
 
-
                             <Sheet>
                                 <SheetTrigger asChild>
                                     <div className="flex items-center space-x-2 cursor-pointer">
@@ -224,7 +223,6 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                     <SheetHeader>
                                         <SheetTitle className="text-xl font-semibold">Responses ({(blog as Blog)?.comments.length})</SheetTitle>
                                         <SheetDescription>
-
                                             <Form {...form}>
                                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                                                     <FormField
@@ -285,10 +283,22 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
                                 <p className="text-gray-500 dark:text-gray-400">Editor for {blog?.topic}</p>
                             </div>
                         </div>
+                        {blog?.collaborators && blog?.collaborators.length > 0 && (
+                            <div className="mt-6">
+                                <h2 className="text-xl font-semibold">Collaborators</h2>
+                                <div className="flex gap-4 mt-2">
+                                    {blog.collaborators.map((collab, index) => (
+                                        <div key={index} className="flex items-center space-x-2">
+                                            <Image src={(collab as any)?.profileImg} alt={`${(collab as any)?.name}'s profile}`} width={40} height={40} />
+                                            <span className="text-gray-700">{(collab as any).name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
             }
         </div>
     )
 }
-
 export default BlogPage;

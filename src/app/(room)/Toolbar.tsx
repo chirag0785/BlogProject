@@ -15,10 +15,7 @@ type Props = {
 
 export function Toolbar({ editor }: Props) {
   return (
-    <div className="flex flex-wrap space-x-4 p-4 bg-gray-300 text-black">
-      <div className="flex-none mb-2">
-        <ThemeToggle />
-      </div>
+    <div className="flex flex-wrap space-x-4 p-4 bg-gray-300 text-black dark:bg-gray-800 dark:text-white">
       <div className="flex-none mb-2">
         <ToolbarCommands editor={editor} />
       </div>

@@ -15,7 +15,9 @@ export interface Blog extends Document{
     name:string
     editAccess:mongoose.Types.ObjectId[];
     accessToAll:boolean;
-    public:boolean
+    public:boolean;
+    collaborators?:mongoose.Types.ObjectId[];
+    wordCount?:number;
 }
 
 const blogSchema=new Schema<Blog>({
@@ -91,6 +93,16 @@ const blogSchema=new Schema<Blog>({
         type:Boolean,
         required:true,
         default:false
+    },
+    collaborators:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ],
+    wordCount:{
+        type:Number,
+        default:0
     }
 })
 

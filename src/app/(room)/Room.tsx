@@ -5,13 +5,17 @@ import {
   LiveblocksProvider,
   RoomProvider,
   ClientSideSuspense,
+  useRoom,
 } from "@liveblocks/react/suspense";
-
-export function Room({ children, roomId }: { children: ReactNode, roomId: string }) {
+const INACTIVE_TIMEOUT = 1000 * 60 * 60;
+export function Room({ children, roomId ,initialContent}: { children: ReactNode, roomId: string, initialContent: string }) {
+  // const room=useRoom();
+  // useEffect(()=>{
+      
+  // },[room]);
   return (
     <LiveblocksProvider
       authEndpoint={`/api/liveblocks-auth/${roomId}`}
-      backgroundKeepAliveTimeout={60 * 60 * 1000}
       resolveUsers={async ({ userIds }) => {
         const searchParams = new URLSearchParams(
           userIds.map((userId) => ["userIds", userId])
@@ -41,6 +45,9 @@ export function Room({ children, roomId }: { children: ReactNode, roomId: string
       <RoomProvider id={'blog-room:'+roomId}
             initialPresence={{
                 cursor: null,
+              }}
+              initialStorage={{
+                content: initialContent,
               }}
       >
         <ClientSideSuspense fallback={<div>Loading…</div>}>

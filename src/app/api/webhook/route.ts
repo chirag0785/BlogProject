@@ -22,17 +22,22 @@ export async function POST(req: Request): Promise<Response> {
         console.log("All users left the room" , event.data);
         await dbConnect();
         const roomId = event.data.roomId;
-        const yjs = await liveblocks.getYjsDocument(roomId);
-        console.log(yjs);
+        // const yjs = await liveblocks.getYjsDocument(roomId);
 
-        if(Object.keys(yjs).length === 0){
-          console.log("Yjs document not found, empty object returned");
+        // const {data}=await liveblocks.getStorageDocument(roomId);
+        
+        // console.log("Data from storage document",data);
+
+        // if(Object.keys(yjs).length === 0){
+        //   console.log("Yjs document not found, empty object returned");
           
-          return Response.json({
-            success: false,
-            message: "Yjs document not found"
-          }, { status: 404 })
-        }
+        //   return Response.json({
+        //     success: false,
+        //     message: "Yjs document not found"
+        //   }, { status: 404 })
+        // }
+
+
         const room = await RoomModel.findOne({ _id: roomId.split(':')[1] });
         const roomliveblocks = await liveblocks.getRoom(roomId);
 
@@ -42,10 +47,25 @@ export async function POST(req: Request): Promise<Response> {
             message: "Room not found"
           }, { status: 404 })
         }
-
-        const str = yjs["default"]?.toString() || "";
+        const storage = await liveblocks.getStorageDocument(roomId);
+        if (!storage) {
+          return Response.json({
+            success: false,
+            message: "Storage document not found"
+          }, { status: 404 })
+        }
+        
+        const content=(storage?.data?.content as string) || "";
+        // const {data:savedBlog,error}=await supabaseClient.from("blog").select("*").eq("roomId",room._id).single();
+        // if(error){
+        //   return Response.json({
+        //     success: false,
+        //     message: "Blog not found"
+        //   }, { status: 404 })
+        // }
+        const str=content || "";
         const textWithoutTags = str.replace(/<[^>]*>/g, '');
-        const wordCount = textWithoutTags.split(/\s+/).filter(word => word.length > 0).length;
+        const wordCount = textWithoutTags.split(/\s+/).filter((word: string) => word?.length > 0).length;
         const timeToRead = Math.ceil(wordCount / 150);
 
         const ownerUser=await UserModel.findOne({_id:room.owner});
@@ -64,34 +84,52 @@ export async function POST(req: Request): Promise<Response> {
               message: "Blog not found"
             }, { status: 404 })
           }
-
+          const prevWordCount=blog?.wordCount as number;
           blog.topic=room?.topic;
           blog.heading=room?.heading;
-          blog.content=yjs["default"]?.toString() || "";
+          blog.content=content || "";
           blog.timeToRead=`${timeToRead}m read`;
           blog.creator=ownerUser.username;
           blog.name=ownerUser.name;
           blog.profileImg=ownerUser.profileImg;
           blog.editAccess=room.editAccess;
           blog.accessToAll=room.accessToAll;
+          blog.wordCount=wordCount;
           blog.public=false;
           await blog.save();
+          //remove the blogId from the user
+          const user=await UserModel.findOne({_id:ownerUser._id});
+          if(!user){
+            return Response.json({
+              success: false,
+              message: "User not found"
+            }, { status: 404 })
+          }
+          user.blogs=user.blogs.filter((blog)=>{
+            if(blog?.blogId.toString()!==room?.blogId?.toString()){
+              return true;
+            }
+            user.wordCount-=prevWordCount;
+          });
+          await user.save();
         }
         else{
           const newBlog = await BlogModel.create({
             topic: room?.topic,
             heading: room?.heading,
-            content: yjs["default"]?.toString() || "",
+            content: content || "",
             timeToRead: `${timeToRead}m read`,
             creator: ownerUser.username,
             name: ownerUser.name,
             profileImg: ownerUser.profileImg,
             editAccess: room.editAccess,
             accessToAll: room.accessToAll,
-            public: false
+            public: false,
+            wordCount: wordCount
           });
         }
-
+        //delete the blog from supabase
+        // await supabaseClient.from("blog").delete().eq("roomId",room._id);
         // Delete the room
         await RoomModel.deleteOne({ _id: roomId.split(':')[1] });
         await liveblocks.deleteRoom(roomId);

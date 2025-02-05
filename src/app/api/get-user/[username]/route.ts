@@ -23,6 +23,7 @@ export async function GET(request: Request, route: { params: { username: string 
         const upcomingbadges=getUpcomingBadges({wordCount:foundUser.wordCount,likes:foundUser.likes,comments:foundUser.comments});
 
         await assignBatches(foundUser._id as string);
+        console.log("foundUser",foundUser);
         return Response.json({
             success: true,
             message: "Blogs fetched success",

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "./ui/use-toast";
 import { useCallback } from "react";
 import axios from "axios";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = () => {
     const { data: session } = useSession();
@@ -52,7 +53,9 @@ const Navbar = () => {
             <Link href={notLoggedIn ? "/" : "/dashboard"} className="text-2xl font-bold text-white hover:text-gray-300">
                 Blog Creator
             </Link>
+            
             <div className="flex items-center space-x-6">
+                <ThemeToggle/>
                 {!notLoggedIn && (
                     <Button
                         onClick={() => {
@@ -60,7 +63,7 @@ const Navbar = () => {
                                 if (id) router.push(`/write-blog/${id}`);
                             });
                         }}
-                        className="text-gray-300 font-medium"
+                        className="text-gray-300 font-large font-semibold"
                     >
                         Write Blog
                     </Button>

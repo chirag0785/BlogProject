@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 const Page = () => {
     const { toast } = useToast();
-    const router=useRouter();
+    const router = useRouter();
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -28,9 +28,9 @@ const Page = () => {
     const onSubmit = async (data: z.infer<typeof signInSchema>) => {
         setIsSubmitting(true);
         try {
-            const response = await signIn("credentials",{ identifier: data.identifier, password: data.password ,redirect:false});
-            
-            if(response?.error){
+            const response = await signIn("credentials", { identifier: data.identifier, password: data.password, redirect: false });
+
+            if (response?.error) {
                 toast({
                     title: "Error",
                     description: response.error,
@@ -56,11 +56,11 @@ const Page = () => {
             setIsSubmitting(false);
         }
     }
-    const signInViaGoogle=async ()=>{
-        try{
-            const response=await signIn("google",{callbackUrl:'/set-username'});
-            
-            if(response?.error){
+    const signInViaGoogle = async () => {
+        try {
+            const response = await signIn("google", { callbackUrl: '/set-username' });
+
+            if (response?.error) {
                 toast({
                     title: "Error",
                     description: response.error,
@@ -70,7 +70,7 @@ const Page = () => {
             }
             router.refresh();
             router.replace('/dashboard');
-        }catch(err:any){
+        } catch (err: any) {
             toast({
                 title: "Error",
                 description: err.message,
@@ -80,12 +80,12 @@ const Page = () => {
     }
     const [isSubmitting, setIsSubmitting] = useState(false);
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-700">
-            <div className="max-w-md w-full bg-gray-300 p-8 shadow-lg rounded-lg">
-                <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">
+        <div className="flex items-center justify-center min-h-screen bg-gray-700 dark:bg-gray-900">
+            <div className="max-w-md w-full bg-gray-300 dark:bg-gray-800 p-8 shadow-lg rounded-lg">
+                <h2 className="text-3xl font-bold text-center mb-4 text-gray-800 dark:text-gray-100">
                     Welcome to BlogCreator
                 </h2>
-                <p className="text-center text-gray-600 mb-6">
+                <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
                     Login to your Account to start blogging
                 </p>
                 <Form {...form}>
@@ -95,12 +95,12 @@ const Page = () => {
                             name="identifier"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email or Username</FormLabel>
+                                    <FormLabel className="text-black dark:text-gray-200">Email or Username</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Enter your email or username"
                                             {...field}
-                                            className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                            className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -112,13 +112,13 @@ const Page = () => {
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel className="text-black dark:text-gray-200">Password</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Enter your password"
                                             {...field}
                                             type="password"
-                                            className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                            className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -130,7 +130,7 @@ const Page = () => {
                         ) : (
                             <Button
                                 type="submit"
-                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md"
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md dark:bg-indigo-700 dark:hover:bg-indigo-800"
                             >
                                 Signin
                             </Button>
@@ -138,18 +138,18 @@ const Page = () => {
                     </form>
                 </Form>
 
-                <p className="text-center text-gray-600 mt-4">
-                    <Button onClick={()=>signInViaGoogle()}>Login with Google</Button>
+                <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
+                    <Button onClick={() => signInViaGoogle()}>Login with Google</Button>
                 </p>
-                <p className="text-center text-gray-600 mt-4">
+                <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
                     New User?{" "}
-                    <Link href="/sign-up" className="text-indigo-600 hover:underline">
+                    <Link href="/sign-up" className="text-indigo-600 hover:underline dark:text-indigo-400">
                         Sign up
                     </Link>
                 </p>
             </div>
-
         </div>
+
     );
 }
 

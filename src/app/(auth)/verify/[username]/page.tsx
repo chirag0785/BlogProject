@@ -24,7 +24,7 @@ const Page = ({ params }: { params: { username: string } }) => {
     const { username } = params;
     const { toast } = useToast();
     const [isVerifying, setIsVerifying] = useState(false);
-    const router=useRouter();
+    const router = useRouter();
     const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),
         defaultValues: {
@@ -56,9 +56,9 @@ const Page = ({ params }: { params: { username: string } }) => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-                <h2 className="mb-6 text-2xl font-semibold text-center text-gray-800">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+            <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                <h2 className="mb-6 text-2xl font-semibold text-center text-gray-800 dark:text-gray-100">
                     Verify Your Email
                 </h2>
                 <Form {...form}>
@@ -68,12 +68,12 @@ const Page = ({ params }: { params: { username: string } }) => {
                             name="code"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Verification Code</FormLabel>
+                                    <FormLabel className="text-gray-800 dark:text-gray-200">Verification Code</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Enter your verification code"
                                             {...field}
-                                            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -86,7 +86,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                             ) : (
                                 <Button
                                     type="submit"
-                                    className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                    className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-blue-700 dark:hover:bg-blue-800"
                                 >
                                     Verify
                                 </Button>
@@ -96,6 +96,7 @@ const Page = ({ params }: { params: { username: string } }) => {
                 </Form>
             </div>
         </div>
+
     );
 }
 

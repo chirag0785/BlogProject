@@ -8,7 +8,6 @@ import { Editor } from "@tiptap/react";
 
 export function Threads({ editor }: { editor: Editor | null }) {
   const { threads } = useThreads({ query: { resolved: false } });
-
   return (
     <>
       <div className="anchored-threads">

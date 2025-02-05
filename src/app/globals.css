@@ -109,7 +109,6 @@
   position: absolute;
   right: 12px;
 }
-
 @media (max-width: 640px) {
   .floating-threads {
     display: block;
@@ -117,5 +116,45 @@
 
   .anchored-threads {
     display: none;
+  }
+}
+
+@layer base {
+  /* Custom Variables */
+  :root {
+    --background-light: 0 0% 100%;
+    --foreground-light: 222.2 84% 4.9%;
+    --background-dark: 222.2 84% 4.9%;
+    --foreground-dark: 210 40% 98%;
+    /* Add other custom properties as needed */
+  }
+
+  /* Default Light Theme */
+  body {
+    background-color: hsl(var(--background-light));
+    color: hsl(var(--foreground-light));
+  }
+
+  /* Dark Mode Styling when `.dark` is applied to html or body */
+  .dark body {
+    background-color: hsl(var(--background-dark));
+    color: hsl(var(--foreground-dark));
+  }
+}
+
+@layer components {
+  /* Custom Tailwind classes based on variables */
+  .bg-background {
+    background-color: hsl(var(--background-light)); /* Light mode */
+  }
+  .text-foreground {
+    color: hsl(var(--foreground-light)); /* Light mode */
+  }
+
+  .dark .bg-background {
+    background-color: hsl(var(--background-dark)); /* Dark mode */
+  }
+  .dark .text-foreground {
+    color: hsl(var(--foreground-dark)); /* Dark mode */
   }
 }
