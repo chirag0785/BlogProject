@@ -74,24 +74,24 @@ export async function generateMetadata({ params }: { params: { blogId: string, c
     }
 }
 
-export async function generateStaticParams(){
-    try{
-        const response=await getBlogs();
+// export async function generateStaticParams(){
+//     try{
+//         const response=await getBlogs();
         
-        if(!Array.isArray(response)){
-            throw new Error(`Invalid data received: ${typeof response}  from server`);
-        }
-        if(response.length==0) return [];
-        return response.map((blog)=>{
-            return {
-                blogId:blog._id,
-            }
-        })
-    }catch(err){
-        console.error(err);
-        return [];
-    }
-}
+//         if(!Array.isArray(response)){
+//             throw new Error(`Invalid data received: ${typeof response}  from server`);
+//         }
+//         if(response.length==0) return [];
+//         return response.map((blog)=>{
+//             return {
+//                 blogId:blog._id,
+//             }
+//         })
+//     }catch(err){
+//         console.error(err);
+//         return [];
+//     }
+// }
 const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) => {
     const blogId = params.blogId;
     const creator = params.creator;
