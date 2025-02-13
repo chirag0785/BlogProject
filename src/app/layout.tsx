@@ -26,7 +26,10 @@ export const metadata: Metadata = {
     description: "For collaborative blogging, write and edit blogs effortlessly with ease",
     images: ['']
   },
-  description: "Blog Creator, write blogs effortlessly" 
+  description: "Blog Creator, write blogs effortlessly",
+  other:{
+    'google-site-verification': 'XHEZ-2Jfp-Y6WBlzhezpVOxa8A7oB6VRKhmztZql6Xc'
+  }
 };
 
 
