@@ -5,6 +5,7 @@ import "@liveblocks/react-tiptap/styles.css";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,28 +25,28 @@ export const metadata: Metadata = {
   },
   openGraph: {
     description: "For collaborative blogging, write and edit blogs effortlessly with ease",
-    images: ['']
+    images: [""],
   },
   description: "Blog Creator, write blogs effortlessly",
-  other:{
-    'google-site-verification': 'XHEZ-2Jfp-Y6WBlzhezpVOxa8A7oB6VRKhmztZql6Xc'
+  other: {
+    "google-site-verification": "XHEZ-2Jfp-Y6WBlzhezpVOxa8A7oB6VRKhmztZql6Xc"
   }
 };
-
 
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" >
-      <AuthProvider>
-        <body className={inter.className}>
+    <html lang="en">
+      <head /> 
+      <body className={inter.className}>
+        <AuthProvider>
           {children}
           <Toaster />
-        </body>
-      </AuthProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
