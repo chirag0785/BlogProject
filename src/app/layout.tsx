@@ -8,9 +8,27 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blog Creator",
-  description: "Blog Creator , write blogs effortlesly",
+  metadataBase: new URL('https://collab-blogging-hub.vercel.app'),
+  keywords: [
+    "Blog Creator",
+    "blogcreator",
+    "blogging",
+    "collaborative",
+    "write and edit blogs",
+    "CollabBloggingHub",
+    "collab-blogging-hub"
+  ],
+  title: {
+    default: "CollabBloggingHub",
+    template: "%s | Collab Blogging Hub"
+  },
+  openGraph: {
+    description: "For collaborative blogging, write and edit blogs effortlessly with ease",
+    images: ['']
+  },
+  description: "Blog Creator, write blogs effortlessly" 
 };
+
 
 interface RootLayoutProps {
   children: React.ReactNode;
