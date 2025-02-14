@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /user/
+Sitemap: https://collab-blogging-hub.vercel.app/sitemap.xml

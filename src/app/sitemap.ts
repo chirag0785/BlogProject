@@ -25,10 +25,6 @@ export default async function sitemap(){
             url:'https://collab-blogging-hub.vercel.app/dashboard',
             lastModified:new Date(),
         },
-        {
-            url:'https://collab-blogging-hub.vercel.app/user/*',
-            lastModified:new Date(),
-        },
         ...blogs,
         ...users
     ]
