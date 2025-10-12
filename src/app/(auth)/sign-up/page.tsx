@@ -18,7 +18,7 @@ import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useDebounceCallback } from "usehooks-ts";
 import Link from "next/link";
 
@@ -28,8 +28,10 @@ const Page = () => {
   const [username, setUsername] = useState("");
   const [isCheckLoading, setIsCheckLoading] = useState(false);
   const [usernameMsg, setUsernameMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const debounced = useDebounceCallback(setUsername, 500);
   const router = useRouter();
+  
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -91,7 +93,7 @@ const Page = () => {
   }, [checkUsernameUnique, username]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-700 dark:bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen bg-gray-700 dark:bg-gray-900 py-8">
       <div className="max-w-md w-full bg-gray-300 dark:bg-gray-800 p-8 shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold text-center mb-4 text-gray-800 dark:text-gray-100">
           Welcome to BlogCreator
@@ -99,6 +101,7 @@ const Page = () => {
         <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
           Start your journey by creating your account.
         </p>
+        
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -106,7 +109,9 @@ const Page = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-black dark:text-gray-200">Username</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">
+                    Username
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your username"
@@ -119,22 +124,27 @@ const Page = () => {
                     />
                   </FormControl>
                   {isCheckLoading ? (
-                    <Loader2 className="animate-spin mt-1" />
+                    <Loader2 className="h-4 w-4 animate-spin mt-1 text-gray-500" />
                   ) : (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {usernameMsg}
-                    </div>
+                    usernameMsg && (
+                      <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        {usernameMsg}
+                      </div>
+                    )
                   )}
                   <FormMessage />
                 </FormItem>
               )}
             />
+            
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-black dark:text-gray-200">Email</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your email"
@@ -146,30 +156,49 @@ const Page = () => {
                 </FormItem>
               )}
             />
+            
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-black dark:text-gray-200">Password</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">
+                    Password
+                  </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your password"
-                      {...field}
-                      type="password"
-                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
-                    />
+                    <div className="relative">
+                      <Input
+                        placeholder="Enter your password"
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        className="pr-10 border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors focus:outline-none"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-black dark:text-gray-200">Name</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">
+                    Name
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your name"
@@ -181,12 +210,15 @@ const Page = () => {
                 </FormItem>
               )}
             />
+            
             <FormField
               control={form.control}
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-black dark:text-gray-200">Profile Image</FormLabel>
+                  <FormLabel className="text-black dark:text-gray-200">
+                    Profile Image
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="image"
@@ -196,34 +228,42 @@ const Page = () => {
                         const file = e.target.files?.[0];
                         field.onChange(file);
                       }}
-                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white"
+                      className="border-gray-300 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:text-white cursor-pointer"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {isSubmitting ? (
-              <Loader2 className="animate-spin mx-auto" />
-            ) : (
-              <Button
-                type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md dark:bg-indigo-700 dark:hover:bg-indigo-800"
-              >
-                Signup
-              </Button>
-            )}
+            
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md dark:bg-indigo-700 dark:hover:bg-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Creating account...
+                </span>
+              ) : (
+                "Signup"
+              )}
+            </Button>
           </form>
         </Form>
+        
         <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-indigo-600 hover:underline dark:text-indigo-400">
+          <Link
+            href="/sign-in"
+            className="text-indigo-600 hover:underline dark:text-indigo-400"
+          >
             Sign in
           </Link>
         </p>
       </div>
     </div>
-
   );
 };
 
