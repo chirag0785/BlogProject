@@ -198,7 +198,7 @@ const Page = ({ params }: { params: { roomId: string } }) => {
                 <div className="mt-4 space-y-2">
                   {suggestedHeadings.map((heading, idx) => (
                     <div
-                      onClick={() => setValue("heading", heading.slice(3))}
+                      onClick={() => setValue("heading", heading)}
                       key={idx}
                       className="text-sm text-gray-800 bg-gray-50 border border-gray-200 p-3 rounded-lg shadow-sm hover:bg-gray-100 transition duration-150 ease-in-out cursor-pointer dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600"
                     >

@@ -24,7 +24,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           {children}
           
           <Toaster />
-            <Footer/>
+            <div className="fixed w-full bottom-0">
+              <Footer/>
+            </div>
       </AuthProvider>
     
   );

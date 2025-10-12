@@ -48,21 +48,6 @@ export async function POST(request:NextRequest){
         //     },
         //     liveblocksType:"LiveObject"
         // })
-
-        const {data,error}=await supabaseClient.from("blog").insert({
-            roomId:room?._id,
-            topic:room?.topic,
-            heading:room?.heading,
-            content:blog?.content || ""
-        })
-
-        if(error){
-            console.error(error);
-            return NextResponse.json({
-                success:false,
-                message:"Internal server error"
-            },{status:500})
-        }
         return NextResponse.json({
             success:true,
             roomId:room._id
