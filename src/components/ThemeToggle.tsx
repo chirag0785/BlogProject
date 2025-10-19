@@ -39,16 +39,16 @@ export function ThemeToggle() {
 
   return (
     <Button
-      className="p-2 rounded-md hover:bg-slate-600 active:bg-slate-600 disabled:opacity-50 text-white "
-      variant="subtle"
-      onClick={changeTheme}
-      aria-label="Switch Theme"
-    >
-      {theme === "dark" ? (
-        <SunIcon className="w-4 h-4" />
-      ) : (
-        <MoonIcon className="w-4 h-4" />
-      )}
-    </Button>
+  className="p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-600 disabled:opacity-50 text-slate-700 dark:text-slate-300 transition-colors"
+  onClick={changeTheme}
+  variant="subtle"
+  aria-label="Switch Theme"
+>
+  {theme === "dark" ? (
+    <SunIcon className="w-5 h-5" />
+  ) : (
+    <MoonIcon className="w-5 h-5" />
+  )}
+</Button>
   );
 }

@@ -1,18 +1,13 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import {
   LiveblocksProvider,
   RoomProvider,
   ClientSideSuspense,
-  useRoom,
 } from "@liveblocks/react/suspense";
 const INACTIVE_TIMEOUT = 1000 * 60 * 60;
 export function Room({ children, roomId ,initialContent}: { children: ReactNode, roomId: string, initialContent: string }) {
-  // const room=useRoom();
-  // useEffect(()=>{
-      
-  // },[room]);
   return (
     <LiveblocksProvider
       authEndpoint={`/api/liveblocks-auth/${roomId}`}

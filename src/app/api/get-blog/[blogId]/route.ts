@@ -24,12 +24,11 @@ export async function GET(request:Request,route:{params:{blogId:string}}){
                 message:`Blog not found with id ${blogId}`
             },{status:404});
         }
-        console.log("here");
         const reqs=recombee.requests;
 
         let tempReqs=new reqs.AddDetailView(session.user._id as string,blogId,{
             'timestamp':new Date().toISOString(),
-            'cascadeCreate':true
+            'cascadeCreate':true,
         });
 
         tempReqs.timeout=10000;

@@ -2,31 +2,34 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-8">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0 text-center md:text-left">
-            <h1 className="text-3xl font-bold text-white mb-2">Blog Creator</h1>
-            <p className="text-gray-400">Sharing ideas, insights, and inspiration with the world.</p>
-          </div>
-
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-          </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-between items-center mt-8 border-t border-gray-700 pt-6">
-          <div className="flex space-x-6 mb-6 md:mb-0">
-            <Link href="https://facebook.com" className="hover:text-white transition-colors">Facebook</Link>
-            <Link href="https://twitter.com" className="hover:text-white transition-colors">Twitter</Link>
-            <Link href="https://linkedin.com" className="hover:text-white transition-colors">LinkedIn</Link>
-            <Link href="https://instagram.com" className="hover:text-white transition-colors">Instagram</Link>
-          </div>
-          <div className="text-sm text-center">
-            <p>&copy; 2024 Blog Creator. All rights reserved.</p>
+    <footer className="sticky bottom-0 z-50 backdrop-blur-sm bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          {/* Copyright */}
+          <span className="text-slate-600 dark:text-slate-400 text-sm">
+            &copy; 2025 Blog Creator. All rights reserved.
+          </span>
+          
+          {/* Links */}
+          <div className="flex gap-6">
+            <Link 
+              href="/about" 
+              className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
+            >
+              About
+            </Link>
+            <Link 
+              href="/blog" 
+              className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
+            >
+              Blog
+            </Link>
+            <Link 
+              href="/contact" 
+              className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
+            >
+              Contact
+            </Link>
           </div>
         </div>
       </div>

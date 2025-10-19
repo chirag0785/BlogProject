@@ -157,7 +157,7 @@ const BlogPage = ({ params }: { params: { blogId: string, creator: string } }) =
     }, [creator, fetchCreator]);
 
     return (
-        <div className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg max-w-3xl mx-auto min-h-[80vh] flex flex-col justify-between">
+        <div className="p-6 bg-slate-50 dark:bg-gray-900 shadow-lg rounded-lg max-w-4xl mx-auto min-h-[80vh] flex flex-col justify-between">
             {
                 !isFetchedCreator || !isFetchedBlog ?
                     <div className="flex-grow">

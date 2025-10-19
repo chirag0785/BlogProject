@@ -7,7 +7,6 @@ import { ToolbarHeadings } from "@/components/ToolbarHeadings";
 import { ToolbarInline } from "@/components/ToolbarInline";
 import { ToolbarMedia } from "@/components/ToolbarMedia";
 import { ToolbarThread } from "@/components/ToolbarThread";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Props = {
   editor: Editor;
